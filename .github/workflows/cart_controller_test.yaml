@@ -13,6 +13,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Installing & Verifying Homebrew
+        run: |
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          brew doctor
+
       - name: Install FVM for Flutter version management
         run: |
           curl -fsSL https://fvm.app/install.sh | bash
