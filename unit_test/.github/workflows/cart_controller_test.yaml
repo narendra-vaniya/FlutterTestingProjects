@@ -1,0 +1,48 @@
+name: CartController & ProductController Tests
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+      - uses: actions/checkout@v4
+
+      - name: Install FVM for Flutter version management
+        run: |
+          curl -fsSL https://fvm.app/install.sh | bash
+          brew tap leoafarias/fvm
+          brew install fvm
+      
+      - name: Checking FVM
+        run: fvm --version
+
+      - name: Install & Setup Flutter SDK
+        run: |
+          fvm install 3.24.2 
+          fvm use 3.24.2  
+          fvm global 3.24.2
+
+      - name: Running Flutter Doctor
+        run: flutter doctor -v
+      
+      - name: Running pub get & build runner
+        run: |
+          flutter pub get
+          flutter pub run build_runner build
+
+      - name: Running CartController Test
+        run: flutter test test/cart_controller_test.dart
+
+
+
+
+
+
+
+    
+
+      
+      
