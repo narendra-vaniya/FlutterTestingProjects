@@ -12,8 +12,7 @@ jobs:
 
     steps:
       - name: Checkout code
-      - uses: actions/checkout@v4
-
+        uses: actions/checkout@v4
       - name: Install FVM for Flutter version management
         run: |
           curl -fsSL https://fvm.app/install.sh | bash
@@ -31,6 +30,12 @@ jobs:
 
       - name: Running Flutter Doctor
         run: flutter doctor -v
+
+      - name: Verifying formatting
+        run: dart format --output=none --set-exit-if-changed .
+
+      - name: Analyzing project source
+        run: dart analyze --fatal-infos
       
       - name: Running pub get & build runner
         run: |
