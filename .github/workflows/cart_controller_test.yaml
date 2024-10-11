@@ -16,14 +16,17 @@ jobs:
 
       - name: Installing & Verifying Homebrew
         run: |
-          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-          brew doctor
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || { echo "Homebrew installation failed"; exit 1; }
+          echo "/home/linuxbrew/.linuxbrew/bin" >> $GITHUB_PATH
+          brew doctor || { echo "brew doctor failed"; exit 1; }
+          brew --version || { echo "brew command not found"; exit 1; }
 
       - name: Install FVM for Flutter version management
         run: |
           curl -fsSL https://fvm.app/install.sh | bash
           brew tap leoafarias/fvm
           brew install fvm
+
       
       - name: Checking FVM
         run: fvm --version
