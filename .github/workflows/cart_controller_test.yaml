@@ -1,6 +1,10 @@
 name: CartController & ProductController Tests
 
-on: [push]
+on:
+  push:
+    paths:
+      - "unit_test/**"
+
 
 jobs:
   test:
@@ -34,7 +38,9 @@ jobs:
           flutter pub run build_runner build
 
       - name: Running CartController Test
-        run: flutter test test/cart_controller_test.dart
+        run: |
+          cd unit_test
+          flutter test test/cart_controller_test.dart
 
 
 
