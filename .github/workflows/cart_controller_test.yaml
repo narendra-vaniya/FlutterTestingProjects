@@ -18,15 +18,15 @@ jobs:
       - name: Install FVM for Flutter version management
         run: |
           curl -fsSL https://fvm.app/install.sh | bash
-
-      - name: Checking FVM
-        run: fvm --version
+          fvm --version
 
       - name: Install & Setup Flutter SDK
         run: |
           fvm install 3.24.2 
           fvm use 3.24.2  
           fvm global 3.24.2
+          echo "/home/runner/fvm/default/bin" >> $GITHUB_PATH
+
 
       - name: Running Flutter Doctor
         run: flutter doctor -v
