@@ -17,7 +17,8 @@ jobs:
       - name: Installing & Verifying Homebrew
         run: |
           /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || { echo "Homebrew installation failed"; exit 1; }
-          echo "/home/linuxbrew/.linuxbrew/bin" >> $GITHUB_PATH
+          echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/runner/.bashrc
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
           brew doctor || { echo "brew doctor failed"; exit 1; }
           brew --version || { echo "brew command not found"; exit 1; }
 
@@ -27,7 +28,7 @@ jobs:
           brew tap leoafarias/fvm
           brew install fvm
 
-      
+        
       - name: Checking FVM
         run: fvm --version
 
