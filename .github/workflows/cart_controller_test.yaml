@@ -31,17 +31,19 @@ jobs:
       - name: Running Flutter Doctor
         run: flutter doctor -v
 
+      - name: Install Dependencies & Build Runner
+        run: |
+          flutter pub get
+          cd unit_test
+          flutter pub get
+          flutter pub run build_runner build
+
       - name: Verifying formatting
         run: dart format --output=none --set-exit-if-changed .
 
       - name: Analyzing project source
         run: dart analyze --fatal-infos
       
-      - name: Running pub get & build runner
-        run: |
-          flutter pub get
-          flutter pub run build_runner build
-
       - name: Running CartController Test
         run: |
           cd unit_test
