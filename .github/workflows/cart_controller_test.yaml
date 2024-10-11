@@ -33,16 +33,19 @@ jobs:
 
       - name: Install Dependencies & Build Runner
         run: |
-          flutter pub get
           cd unit_test
           flutter pub get
           flutter pub run build_runner build
 
       - name: Verifying formatting
-        run: dart format --output=none --set-exit-if-changed .
+        run: |
+          cd unit_test
+          dart format --output=none --set-exit-if-changed .
 
       - name: Analyzing project source
-        run: dart analyze --fatal-infos
+        run: |
+          cd unit_test
+          dart analyze --fatal-infos
       
       - name: Running CartController Test
         run: |
