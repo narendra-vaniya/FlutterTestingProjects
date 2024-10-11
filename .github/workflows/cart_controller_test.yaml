@@ -2,8 +2,8 @@ name: CartController & ProductController Tests
 
 on:
   push:
-    paths:
-      - "unit_test/**"
+    branches:
+      - main  
 
 
 jobs:
