@@ -31,11 +31,11 @@ jobs:
       - name: Running Flutter Doctor
         run: flutter doctor -v
 
-      - name: Install Dependencies & Build Runner
+      - name: Install Dependencies
         run: |
           cd unit_test
           flutter pub get
-          flutter pub run build_runner build
+
 
       - name: Verifying formatting
         run: |
