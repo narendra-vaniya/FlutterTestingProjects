@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import '../bin/cart_contorller.dart';
+import '../bin/cart_controller.dart';
 
 void main() {
   group('Testing CartController', () {
