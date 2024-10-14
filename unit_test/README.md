@@ -1,42 +1,57 @@
-# Unit Testing
+# Cart Controller
 
-## Cart Controller
+This `CartController` class implements a simple ways for managing products in a shopping cart. It allows adding, removing, and updating product quantities, as well as calculating the total price of the cart.
 
-### Description
+## Basic Use Case
 
-The `CartController` class is designed to manage a shopping cart. It allows users to add products to the cart, remove products, and adjust the quantity of products. The cart also calculates the total price of the products. The `CartController` does not contain any API calls and serves as a row controller for managing the cart.
-
-### Usage
-
-To use the `CartController` class, you need to import the `cart_controller.dart` file into your project.
+Here is a code snippet demonstrating basic usage of the `CartController`:
 
 ```dart
-import 'cart_controller.dart';
-
 void main() {
   final cart = CartController();
 
   // Adding products to the cart
-  cart.addProductToCart(
-    ProductModel(id: 'mango', name: 'Mango', priceInKg: 100, ratting: 5),
-  );
+  cart.addProductToCart(ProductModel(id: 'mango', name: 'Mango', priceInKg: 100, ratting: 5));
+  cart.addProductToCart(ProductModel(id: 'apple', name: 'Apple', priceInKg: 160, ratting: 5));
 
-// Adding another banana product
- cart.addProductToCart(
-    ProductModel(id: 'banana', name: 'Banana', priceInKg: 40, ratting: 4.2),
-  );
+  // Decreasing the quantity of a product
+  cart.decreaseProductQuantityFromCart(ProductModel(id: 'mango', name: 'Mango', priceInKg: 100, ratting: 5));
 
-  // Adding another mango product with a different price
-  cart.addProductToCart(
-    ProductModel(id: 'mango', name: 'Mango', priceInKg: 120, ratting: 5),
-  );
+  // Removing a product from the cart
+  cart.removeProductFromCart('apple');
 
-  // Adding mango product with a specified  quantity
-  cart.addProductToCart(
-    ProductModel(id: 'mango', name: 'Mango', priceInKg: 120, ratting: 5, quantity: 2),
-
-  // Printing the total price of the cart
+  // Printing the current state of the cart
+  cart.toPrint();
   print("===> Total price: ${cart.totalPrice()}");
-
 }
 ```
+
+
+
+----
+# ProductsController 
+
+## Overview
+The `ProductsController` class is responsible for managing product-related operations in the application. It interacts with the `ProductService` to fetch products and categories from an external API and provides methods to access and manipulate this data.
+
+## Basic Usage
+To use the `ProductsController`, instantiate it with a `ProductService` and call the relevant methods to fetch and manage product data.
+
+```dart
+// Import necessary packages
+import 'package:http/http.dart' as http;
+
+// Create an instance of ProductService
+final productService = ProductService(http.Client());
+
+// Instantiate the ProductsController
+final productsController = ProductsController(productService);
+
+// Fetch products and categories
+await productsController.getProducts();
+await productsController.getCategories();
+
+// Print the count of products and categories
+productsController.toPrint();
+```
+
