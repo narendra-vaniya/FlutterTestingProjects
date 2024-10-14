@@ -1,0 +1,68 @@
+name: ProductService & ProductController Tests
+
+on:
+  push:
+    branches:
+      - main  
+
+
+jobs:
+  Testing-ProductService-and-ProductController:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+
+      - name: Install FVM for Flutter version management
+        run: |
+          curl -fsSL https://fvm.app/install.sh | bash
+          fvm --version
+
+      - name: Install & Setup Flutter SDK
+        run: |
+          fvm install 3.24.2 
+          fvm use 3.24.2  
+          fvm global 3.24.2
+          echo "/home/runner/fvm/default/bin" >> $GITHUB_PATH
+
+
+      - name: Running Flutter Doctor
+        run: flutter doctor -v
+
+      - name: Install Dependencies
+        run: |
+          cd unit_test
+          flutter pub get
+          flutter pub run build_runner build
+
+
+      - name: Verifying formatting
+        run: |
+          cd unit_test
+          dart format --output=none --set-exit-if-changed .
+
+      - name: Analyzing project source
+        run: |
+          cd unit_test
+          dart analyze --fatal-infos
+          
+      
+      - name: Running ProductService and ProductController Test
+        run: |
+          cd unit_test
+          flutter test test/product_controller_test.dart
+          flutter test test/product_service_test.dart
+          
+
+
+
+
+
+
+
+    
+
+      
+      

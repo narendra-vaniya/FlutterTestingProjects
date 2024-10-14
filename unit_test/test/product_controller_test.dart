@@ -5,8 +5,6 @@ import 'package:test/test.dart';
 import '../bin/product_controller.dart';
 import 'product_controller_test.mocks.dart';
 
-
-
 @GenerateNiceMocks([MockSpec<ProductService>()])
 void main() {
   group('Testing ProductsController', () {
